@@ -22,4 +22,5 @@ var/
 *.egg
 
 # Other
+*.db
 .DS_Store
