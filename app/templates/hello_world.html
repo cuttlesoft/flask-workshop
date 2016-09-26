@@ -1,4 +1,12 @@
-<h1>Hello, World!</h1>
+<h1>Hello, {{ current_user.username if current_user.is_authenticated else 'World' }}!</h1>
 
 <img src="https://upload.wikimedia.org/wikipedia/commons/c/cd/LARGE_elevation-1080x1080-animated72steps.gif"
      alt="Spinning globe" width="185" height="185">
+
+<p>
+    {% if current_user.is_authenticated %}
+    <a href="{{url_for('logout')}}">Logout</a>
+    {% else %}
+    <a href="{{url_for('login')}}">Login</a>
+    {% endif %}
+</p>
