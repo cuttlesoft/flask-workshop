@@ -1,19 +1,75 @@
+<!DOCTYPE HTML>
+<!--
+	Identity by HTML5 UP
+	html5up.net | @ajlkn
+	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
+-->
 <html>
-  <head>
-    <title>Flask Workshop{% if title %} - {{ title }}{% endif %}</title>
-  </head>
-  <body>
-    <!-- navigation here -->
-    {% with messages = get_flashed_messages() %}
-      {% if messages %}
-        <ul>
-        {% for message in messages %}
-            <li>{{ message }} </li>
-        {% endfor %}
-        </ul>
-      {% endif %}
-    {% endwith %}
-    {% block content %}{% endblock %}
-    <!-- footer here -->
-  </body>
+	<head>
+    <title>Flask Workshop{% if title %} - {{ title }}{% endif %}</title>		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<!--[if lte IE 8]><script src="{{ url_for('static', filename='js/html5shiv.js') }}"></script><![endif]-->
+		<link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}" />
+		<!--[if lte IE 9]><link rel="stylesheet" href="{{ url_for('static', filename='css/ie9.css') }}" /><![endif]-->
+		<!--[if lte IE 8]><link rel="stylesheet" href="{{ url_for('static', filename='css/ie8.css') }}" /><![endif]-->
+		<noscript><link rel="stylesheet" href="{{ url_for('static', filename='css/noscript.css') }}" /></noscript>
+
+    <!-- Quick styles for flashes; it would be better to put them in a file, though. -->
+    <style>
+      ul.flash {
+        list-style: none;
+        margin: -2em 0 3.5em 0;
+      }
+    </style>
+	</head>
+	<body class="is-loading">
+		<!-- Wrapper -->
+			<div id="wrapper">
+
+				<!-- Main -->
+					<section id="main">
+            {% with messages = get_flashed_messages() %}
+              {% if messages %}
+              <ul class="flash">
+                {% for message in messages %}
+                <li>{{ message }} </li>
+                {% endfor %}
+              </ul>
+              {% endif %}
+            {% endwith %}
+
+            <header>
+              {% block content %}{% endblock %}
+            </header>
+
+						<footer>
+							<ul class="icons">
+                <li><a href="https://github.com/cuttlesoft/flask-workshop" class="fa-github">GitHub</a></li>
+                <!-- <li><a href="https://github.com/cuttlesoft" class="fa-github">GitHub</a></li>
+                <li><a href="https://twitter.com/cuttlesoft" class="fa-twitter">Twitter</a></li> -->
+							</ul>
+						</footer>
+					</section>
+
+				<!-- Footer -->
+					<footer id="footer">
+						<ul class="copyright">
+              <!-- <li>Project: <a href="https://cuttlesoft.com">Cuttlesoft</a></li> -->
+              <li>Project: <a href="https://github.com/cuttlesoft">Cuttlesoft</a></li>
+              <li>Design: <a href="http://html5up.net">HTML5 UP</a></li>
+						</ul>
+					</footer>
+
+			</div>
+
+		<!-- Scripts -->
+			<!--[if lte IE 8]><script src="{{ url_for('static', filename='js/respond.min.js') }}"></script><![endif]-->
+			<script>
+				if ('addEventListener' in window) {
+					window.addEventListener('load', function() { document.body.className = document.body.className.replace(/\bis-loading\b/, ''); });
+					document.body.className += (navigator.userAgent.match(/(MSIE|rv:11\.0)/) ? ' is-ie' : '');
+				}
+			</script>
+
+	</body>
 </html>

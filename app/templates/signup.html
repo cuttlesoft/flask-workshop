@@ -2,16 +2,17 @@
 
 {% extends 'base.html' %}
 {% block content %}
+<h1>Sign Up</h1>
 <form method="POST" action="{{ url_for('signup') }}">
     {{ form.csrf_token }}
-    <div>
+    <div class="field">
         {{ form.username.label }}
         {{ form.username }}
         {% for error in form.username.errors %}
         <span style="color: red;">{{ error }}</span>
         {% endfor %}
     </div>
-    <div>
+    <div class="field">
         {{ form.password.label }}
         {{ form.password }}
         {% for error in form.password.errors %}
