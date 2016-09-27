@@ -1,9 +1,10 @@
 # -*- coding: utf-8 -*-
 """This file defines the routes and view functions."""
-from flask import redirect, render_template, request, url_for
+from flask import flash, redirect, render_template, request, url_for
 from flask_login import current_user, login_required, login_user, logout_user
 
 from . import app
+from .forms import LoginForm, SignupForm
 from .models import User
 
 
@@ -15,20 +16,31 @@ def hello_world():
 @app.route('/login', methods=['GET', 'POST'])
 def login():
     if current_user.is_authenticated:
-        return redirect(url_for('hello_world'))
+        # flash('You are already logged in.')
+        return redirect('/')
 
-    # For GET request, render login form
-    if request.method == 'GET':
-        return render_template('login.html')
-
-    # For POST request, find user and try to log them in
-    username = request.form.get('username')
-    user = User.query.filter_by(username=username).first()
-    if user and user.check_password(request.form.get('password')):
+    form = LoginForm()
+    if form.validate_on_submit():  # includes username/password validations
+        user = User.query.filter_by(username=form.username.data).first()
         login_user(user)
-        return redirect(url_for('hello_world'))
+        # flash('Logged in successfully.')
+        return redirect('/')
+    return render_template('login.html', form=form)
 
-    return 'Invalid login. <a href="%s">Go back?</a>' % url_for('login')
+
+@app.route('/signup', methods=['GET', 'POST'])
+def signup():
+    if current_user.is_authenticated:
+        # flash('You are already logged in.')
+        return redirect('/')
+
+    form = SignupForm()
+    if form.validate_on_submit():  # includes username/password validations
+        user = User(username=form.username.data, password=form.password.data).save()
+        login_user(user)
+        # flash('Signed up successfully.')
+        return redirect('/')
+    return render_template('signup.html', form=form)
 
 
 # TODO: create better example for @login_required, since having it
@@ -37,4 +49,5 @@ def login():
 @login_required
 def logout():
     logout_user()
-    return 'Logged out. <a href="%s">Log in?</a>' % url_for('login')
+    # flash('Logged out successfully.')
+    return redirect('/')

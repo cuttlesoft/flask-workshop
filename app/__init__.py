@@ -6,16 +6,11 @@ from flask_login import LoginManager
 
 
 app = Flask(__name__)
-app.secret_key = 'ThisKeyIsTheMostSecretOfAllKeys'
-
-# Database setup with Flask-SQLAlchemy
-
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///app.db'
-app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = True  # suppress warning
+app.config.from_object('config')
 
 db = SQLAlchemy(app)
 
-# User session management with Flask-Login
+# Flask-Login
 
 login_manager = LoginManager()
 login_manager.init_app(app)

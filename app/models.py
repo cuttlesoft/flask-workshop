@@ -27,6 +27,12 @@ class User(UserMixin, db.Model):
             return False
         return check_password_hash(self.password, password)
 
+    # TODO: Base model for this and related functions common to models
+    def save(self):
+        db.session.add(self)
+        db.session.commit()
+        return self
+
 
 @login_manager.user_loader
 def user_loader(id):

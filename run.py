@@ -10,7 +10,6 @@ if __name__ == '__main__':
     if not models.User.query.filter_by(username='TestUser').first():
         user = models.User(username='TestUser')
         user.password = 'testpassword'
-        db.session.add(user)
-        db.session.commit()
+        user.save()
 
     app.run(debug=True)

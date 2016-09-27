@@ -5,8 +5,10 @@
 
 <p>
     {% if current_user.is_authenticated %}
-    <a href="{{url_for('logout')}}">Logout</a>
+    <a href="{{url_for('logout')}}">Log Out</a>
     {% else %}
-    <a href="{{url_for('login')}}">Login</a>
+    <a href="{{url_for('login')}}">Log In</a>
+    /
+    <a href="{{url_for('signup')}}">Sign Up</a>
     {% endif %}
 </p>
