@@ -1,3 +1,5 @@
+{% extends 'base.html' %}
+{% block content %}
 <h1>Hello, {{ current_user.username if current_user.is_authenticated else 'World' }}!</h1>
 
 <img src="https://upload.wikimedia.org/wikipedia/commons/c/cd/LARGE_elevation-1080x1080-animated72steps.gif"
@@ -12,3 +14,4 @@
     <a href="{{url_for('signup')}}">Sign Up</a>
     {% endif %}
 </p>
+{% endblock %}

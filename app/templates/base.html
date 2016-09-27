@@ -1,0 +1,19 @@
+<html>
+  <head>
+    <title>Flask Workshop{% if title %} - {{ title }}{% endif %}</title>
+  </head>
+  <body>
+    <!-- navigation here -->
+    {% with messages = get_flashed_messages() %}
+      {% if messages %}
+        <ul>
+        {% for message in messages %}
+            <li>{{ message }} </li>
+        {% endfor %}
+        </ul>
+      {% endif %}
+    {% endwith %}
+    {% block content %}{% endblock %}
+    <!-- footer here -->
+  </body>
+</html>

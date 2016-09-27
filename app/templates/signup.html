@@ -1,3 +1,7 @@
+{% set title='Sign Up' %}
+
+{% extends 'base.html' %}
+{% block content %}
 <form method="POST" action="{{ url_for('signup') }}">
     {{ form.csrf_token }}
     <div>
@@ -16,3 +20,4 @@
     </div>
     {{ form.submit }}
 </form>
+{% endblock %}
